@@ -29,7 +29,7 @@ export default function ensureAuthentication(
 
     const { sub } = decoded as TokenPayload;
 
-    request.user = {
+    request.acs = {
       id: sub,
     };
 

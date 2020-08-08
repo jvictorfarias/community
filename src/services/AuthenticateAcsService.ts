@@ -5,7 +5,7 @@ import authConfig from '../config/auth';
 
 import AppError from '../errors/AppError';
 
-import User from '../models/User';
+import Acs from '../models/Acs';
 
 interface Request {
   email: string;
@@ -13,36 +13,36 @@ interface Request {
 }
 
 interface Response {
-  user: User;
+  acs: Acs;
   token: string;
 }
 
-class AuthenticateUserService {
+class AuthenticateAcsService {
   public async execute({ email, password }: Request): Promise<Response> {
-    const usersRepository = getRepository(User);
+    const acsRepository = getRepository(Acs);
 
-    const user = await usersRepository.findOne({ where: { email } });
+    const acs = await acsRepository.findOne({ where: { email } });
 
-    if (!user) {
+    if (!acs) {
       throw new AppError('Incorrect Email/Password validation.', 401);
     }
 
-    // user.password = senha criptografada
-
-    if (!(await compare(password, user.password))) {
+    if (!(await compare(password, acs.password))) {
       throw new AppError('Incorrect Email/Password validation.', 401);
     }
 
     const token = sign({}, authConfig.secret, {
-      subject: user.id,
+      subject: acs.id,
       expiresIn: authConfig.expiresIn,
     });
 
+    delete acs.password;
+
     return {
-      user,
+      acs,
       token,
     };
   }
 }
 
-export default AuthenticateUserService;
+export default AuthenticateAcsService;

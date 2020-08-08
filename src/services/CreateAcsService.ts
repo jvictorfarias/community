@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 
 import AppError from '../errors/AppError';
 
-import User from '../models/User';
+import Acs from '../models/Acs';
 
 interface Request {
   name: string;
@@ -11,26 +11,26 @@ interface Request {
   password: string;
 }
 
-class CreateUserService {
-  public async execute({ name, email, password }: Request): Promise<User> {
-    const usersRepository = getRepository(User);
+class CreateAcsService {
+  public async execute({ name, email, password }: Request): Promise<Acs> {
+    const acsRepository = getRepository(Acs);
 
-    if (await usersRepository.findOne({ where: { email } })) {
+    if (await acsRepository.findOne({ where: { email } })) {
       throw new AppError('Email address already used.');
     }
 
     const hash_password = await hash(password, 8);
 
-    const user = usersRepository.create({
+    const acs = acsRepository.create({
       name,
       email,
       password: hash_password,
     });
 
-    await usersRepository.save(user);
+    await acsRepository.save(acs);
 
-    return user;
+    return acs;
   }
 }
 
-export default CreateUserService;
+export default CreateAcsService;
