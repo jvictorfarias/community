@@ -7,12 +7,20 @@ import Acs from '../models/Acs';
 
 interface Request {
   name: string;
+  cns: string;
+  cbo: string;
   email: string;
   password: string;
 }
 
 class CreateAcsService {
-  public async execute({ name, email, password }: Request): Promise<Acs> {
+  public async execute({
+    name,
+    email,
+    cns,
+    cbo,
+    password,
+  }: Request): Promise<Acs> {
     const acsRepository = getRepository(Acs);
 
     if (await acsRepository.findOne({ where: { email } })) {
@@ -24,6 +32,8 @@ class CreateAcsService {
     const acs = acsRepository.create({
       name,
       email,
+      cns,
+      cbo,
       password: hash_password,
     });
 

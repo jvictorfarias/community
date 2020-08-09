@@ -15,8 +15,8 @@ export default class App {
 
   constructor() {
     this.app = express();
-    this.routes();
     this.middlewares();
+    this.routes();
   }
 
   private routes(): void {
@@ -38,6 +38,7 @@ export default class App {
         return response.status(500).json({
           status: 'error',
           message: 'Internal Server Error',
+          error: error.message,
         });
       },
     );

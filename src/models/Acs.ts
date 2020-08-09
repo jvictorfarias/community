@@ -18,6 +18,12 @@ class Acs {
   email: string;
 
   @Column()
+  cns: string;
+
+  @Column()
+  cbo: string;
+
+  @Column()
   password: string;
 
   @Column()
