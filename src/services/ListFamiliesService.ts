@@ -1,22 +1,25 @@
 import { getRepository } from 'typeorm';
 
+import Acs from '../models/Acs';
 import Family from '../models/Family';
 
 interface Request {
   acs_id: string;
 }
 
-class CreateAcsService {
+class ListFamiliesService {
   public async execute({ acs_id }: Request): Promise<Family[]> {
-    const familyRepository = getRepository(Family);
+    const acsRepository = getRepository(Acs);
+    try {
+      const { families } = await acsRepository.findOneOrFail({
+        where: { acs_id },
+      });
 
-    const family = await familyRepository.find({
-      where: { acs_id },
-      relations: ['address', 'acs'],
-    });
-
-    return family;
+      return families;
+    } catch {
+      return [] as Family[];
+    }
   }
 }
 
-export default CreateAcsService;
+export default ListFamiliesService;
