@@ -12,7 +12,7 @@ class ListFamilyService {
 
     const families = await familyRepository.findOne({
       where: { id },
-      relations: ['address', 'acs'],
+      relations: ['address', 'acs', 'individuals'],
     });
 
     return families;

@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import Family from './Family';
 
@@ -16,7 +17,10 @@ class Individual {
   @Column()
   family_id: string;
 
-  @ManyToOne(() => Family, family => family.individuals)
+  @ManyToOne(() => Family, family => family.individuals, {
+    eager: true,
+  })
+  @JoinColumn({ name: 'family_id' })
   family: Family;
 
   @Column()
@@ -65,7 +69,7 @@ class Individual {
   is_deficient: boolean;
 
   @Column()
-  deficient_falty: string;
+  deficient_faulty: string;
 
   @Column()
   is_pregnant: boolean;
