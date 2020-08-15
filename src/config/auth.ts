@@ -4,6 +4,6 @@ interface AuthConfig {
 }
 
 export default {
-  secret: process.env.APP_SECRET,
+  secret: process.env.AUTH_SECRET,
   expiresIn: '30d',
 } as AuthConfig;

@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import Family from './Family';
 
 @Entity('acs')
 class Acs {
@@ -28,6 +30,11 @@ class Acs {
 
   @Column()
   avatar: string;
+
+  @OneToMany(() => Family, family => family.acs, {
+    eager: true,
+  })
+  families: Family[];
 
   @CreateDateColumn()
   created_at: Date;
