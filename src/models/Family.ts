@@ -5,11 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
   JoinColumn,
   OneToOne,
 } from 'typeorm';
 import Acs from './Acs';
 import Address from './Address';
+import Individual from './Individual';
 
 @Entity('families')
 class Family {
@@ -30,6 +32,9 @@ class Family {
 
   @OneToOne(() => Address, address => address.family)
   address: Address;
+
+  @OneToMany(() => Individual, individual => individual.family)
+  individuals: Individual[];
 
   @CreateDateColumn()
   created_at: Date;

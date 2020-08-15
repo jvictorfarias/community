@@ -39,7 +39,7 @@ class Address {
   phone: string;
 
   @OneToOne(() => Family, family => family.address, {
-    eager: true,
+    eager: false,
     cascade: ['insert'],
   })
   @JoinColumn({ name: 'family_id' })

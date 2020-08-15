@@ -32,7 +32,7 @@ class Acs {
   avatar: string;
 
   @OneToMany(() => Family, family => family.acs, {
-    eager: true,
+    eager: false,
   })
   families: Family[];
 
