@@ -7,7 +7,7 @@ import individualsRouter from './individual.routes';
 const routes = Router();
 
 routes.use('/acs', acsRouter);
-routes.use('/session', sessionsRouter);
+routes.use('/sessions', sessionsRouter);
 routes.use('/families', familiesRouter);
 routes.use('/individuals', individualsRouter);
 
