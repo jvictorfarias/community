@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import 'dotenv/config';
+import 'express-async-errors';
 
 import express, { Request, Response, NextFunction, Express } from 'express';
-import 'express-async-errors';
 import morgan from 'morgan';
 import routes from './routes';
 
@@ -31,6 +31,7 @@ export default class App {
     this.app.use(
       (error: Error, request: Request, response: Response, _: NextFunction) => {
         if (error instanceof AppError) {
+          console.log(error);
           return response.status(error.statusCode).json({
             status: 'error',
             message: error.message,

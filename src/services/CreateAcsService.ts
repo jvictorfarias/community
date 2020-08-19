@@ -23,8 +23,8 @@ class CreateAcsService {
   }: Request): Promise<Acs> {
     const acsRepository = getRepository(Acs);
 
-    if (await acsRepository.findOne({ where: { email } })) {
-      throw new AppError('Email address already used.');
+    if (await acsRepository.findOne({ where: { email, cns, cbo } })) {
+      throw new AppError('Data is already used.');
     }
 
     const hash_password = await hash(password, 8);
