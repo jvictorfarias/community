@@ -1,6 +1,5 @@
 import { getRepository } from 'typeorm';
 
-import Acs from '../models/Acs';
 import Family from '../models/Family';
 
 interface Request {
@@ -9,16 +8,13 @@ interface Request {
 
 class ListFamiliesService {
   public async execute({ acs_id }: Request): Promise<Family[]> {
-    const acsRepository = getRepository(Acs);
-    try {
-      const { families } = await acsRepository.findOneOrFail({
-        where: { acs_id },
-      });
+    const acsRepository = getRepository(Family);
 
-      return families;
-    } catch {
-      return [] as Family[];
-    }
+    const families = await acsRepository.find({
+      where: { acs_id },
+    });
+
+    return families;
   }
 }
 
