@@ -40,12 +40,20 @@ class CreateAcsService {
       acs.password = await hash(newPassword, 8);
     }
 
-    acs.name = name;
-    acs.email = email;
+    if (email) {
+      acs.email = email;
+    }
+
+    if (name) {
+      acs.name = name;
+    }
 
     await acsRepository.save(acs);
 
-    return acs;
+    return {
+      ...acs,
+      avatar: `${process.env.APP_URL}/files/${acs.avatar}`,
+    };
   }
 }
 
