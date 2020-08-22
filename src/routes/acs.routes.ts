@@ -11,6 +11,7 @@ const acsRouter = Router();
 const upload = multer(uploadConfig);
 
 acsRouter.post('/', AcsController.create);
+acsRouter.put('/', ensureAuthentication, AcsController.update);
 acsRouter.patch(
   '/avatar',
   ensureAuthentication,

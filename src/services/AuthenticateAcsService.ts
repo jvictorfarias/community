@@ -39,7 +39,10 @@ class AuthenticateAcsService {
     delete acs.password;
 
     return {
-      acs,
+      acs: {
+        ...acs,
+        avatar: `${process.env.APP_URL}/files/${acs.avatar}`,
+      },
       token,
     };
   }

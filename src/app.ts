@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import 'dotenv/config';
 import 'express-async-errors';
+import 'dotenv/config';
 
 import express, { Request, Response, NextFunction, Express } from 'express';
 import morgan from 'morgan';
@@ -18,6 +18,7 @@ export default class App {
     this.app = express();
     this.middlewares();
     this.routes();
+    this.errorHandlers();
   }
 
   private routes(): void {
@@ -28,20 +29,21 @@ export default class App {
     this.app.use(express.json());
     this.app.use('/files', express.static(uploadConfig.directory));
     this.app.use(morgan('tiny'));
+  }
+
+  private errorHandlers(): void {
     this.app.use(
       (error: Error, request: Request, response: Response, _: NextFunction) => {
         if (error instanceof AppError) {
-          console.log(error);
           return response.status(error.statusCode).json({
             status: 'error',
-            message: error.message,
+            error: error.message,
           });
         }
 
         return response.status(500).json({
           status: 'error',
           message: 'Internal Server Error',
-          error: error.message,
         });
       },
     );

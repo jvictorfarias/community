@@ -9,8 +9,6 @@ class SessionController {
 
     const { acs, token } = await authenticateAcs.execute({ email, password });
 
-    delete acs.password;
-
     return response.status(200).json({ acs, token });
   }
 }
