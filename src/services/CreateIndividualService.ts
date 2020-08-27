@@ -1,9 +1,9 @@
 import { getRepository } from 'typeorm';
-import { parseISO } from 'date-fns';
 
 import Individual from '../models/Individual';
 
 interface Request {
+  [index: string]: string;
   family_id: string;
   name: string;
   cns: string;
@@ -16,47 +16,54 @@ interface Request {
   nationality: string;
   birth_country: string;
   birth_state: string;
-  is_school_frequency?: boolean;
+  is_school_frequency: string;
   education: string;
   work: string;
-  is_deficient?: boolean;
+  is_deficient: string;
   deficient_faulty: string;
-  is_pregnant?: boolean;
-  is_smoker?: boolean;
+  is_pregnant: string;
+  is_smoker: string;
   imc: string;
-  is_drug_addict?: boolean;
-  is_alcoholic?: boolean;
-  is_hypertensive?: boolean;
-  is_diabetic?: boolean;
-  is_stroke?: boolean;
-  is_infarct?: boolean;
-  is_heart_sick?: boolean;
+  is_drug_addict: string;
+  is_alcoholic: string;
+  is_hypertensive: string;
+  is_diabetic: string;
+  is_stroke: string;
+  is_infarct: string;
+  is_heart_sick: string;
   heart_disease: string;
-  is_kidney_sick?: boolean;
+  is_kidney_sick: string;
   kidney_disease: string;
-  is_respiratory_sick?: boolean;
+  is_respiratory_sick: string;
   respiratory_disease: string;
-  is_hanseniase?: boolean;
-  is_tuberculosis?: boolean;
-  is_cancer?: boolean;
-  is_hospitalization_last_12_months?: boolean;
+  is_hanseniase: string;
+  is_tuberculosis: string;
+  is_cancer: string;
+  is_hospitalization_last_12_months: string;
   hospitalization_cause: string;
-  is_mental_sick?: boolean;
-  is_bedridden?: boolean;
-  is_domicilied?: boolean;
-  is_homeless?: boolean;
+  is_mental_sick: string;
+  is_bedridden: string;
+  is_domicilied: string;
+  is_homeless: string;
 }
 
 class CreateIndividualService {
   public async execute(args: Request): Promise<Individual> {
     const individualRepository = getRepository(Individual);
 
-    const parsedDate = parseISO(args.birthday);
+    console.log(args);
 
-    const individual = individualRepository.create({
-      ...args,
-      birthday: parsedDate,
+    Object.keys(args).forEach(key => {
+      if (args[key] === 'true' || args[key] === 'false') {
+        args[key] = JSON.parse(args[key].toLowerCase());
+      }
     });
+
+    const data: Partial<Individual> = args;
+
+    const individual = individualRepository.create(data);
+
+    console.log(args);
 
     await individualRepository.save(individual);
 

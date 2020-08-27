@@ -33,7 +33,7 @@ class Individual {
   cpf: string;
 
   @Column()
-  birthday: Date;
+  birthday: string;
 
   @Column()
   sex: string;

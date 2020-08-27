@@ -41,7 +41,7 @@ export default class CreateIndividuals1597472067425
           },
           {
             name: 'birthday',
-            type: 'timestamp with time zone',
+            type: 'varchar',
             isNullable: false,
           },
           {
