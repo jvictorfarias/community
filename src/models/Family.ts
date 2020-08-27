@@ -33,7 +33,9 @@ class Family {
   @OneToOne(() => Address, address => address.family)
   address: Address;
 
-  @OneToMany(() => Individual, individual => individual.family)
+  @OneToMany(() => Individual, individual => individual.family, {
+    cascade: ['remove'],
+  })
   individuals: Individual[];
 
   @CreateDateColumn()

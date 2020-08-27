@@ -80,6 +80,7 @@ export default class CreateAddresses1597460802761
         columnNames: ['family_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'families',
+        onDelete: 'CASCADE',
       }),
     );
   }

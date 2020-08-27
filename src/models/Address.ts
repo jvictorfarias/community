@@ -40,7 +40,7 @@ class Address {
 
   @OneToOne(() => Family, family => family.address, {
     eager: false,
-    cascade: ['insert'],
+    cascade: ['insert', 'remove'],
   })
   @JoinColumn({ name: 'family_id' })
   family: Family;

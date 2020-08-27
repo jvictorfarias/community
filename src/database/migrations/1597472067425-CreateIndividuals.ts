@@ -45,6 +45,11 @@ export default class CreateIndividuals1597472067425
             isNullable: false,
           },
           {
+            name: 'phone',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'sex',
             type: 'varchar',
             isNullable: false,
