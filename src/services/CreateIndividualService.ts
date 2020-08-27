@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 
 import Individual from '../models/Individual';
+import Logger from '../helpers/Logger';
 
 interface Request {
   [index: string]: string;
@@ -51,8 +52,6 @@ class CreateIndividualService {
   public async execute(args: Request): Promise<Individual> {
     const individualRepository = getRepository(Individual);
 
-    console.log(args);
-
     Object.keys(args).forEach(key => {
       if (args[key] === 'true' || args[key] === 'false') {
         args[key] = JSON.parse(args[key].toLowerCase());
@@ -63,9 +62,9 @@ class CreateIndividualService {
 
     const individual = individualRepository.create(data);
 
-    console.log(args);
-
     await individualRepository.save(individual);
+
+    Logger.create(args.family_id, `Cadastrou o indivíduo de nome ${args.name}`);
 
     return individual;
   }

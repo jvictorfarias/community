@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import CreateAcsService from '../services/CreateAcsService';
 import UpdateAcsService from '../services/UpdateAcsService';
+import Logger from '../helpers/Logger';
 
 class AcsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -18,6 +19,8 @@ class AcsController {
   public async update(request: Request, response: Response): Promise<Response> {
     const updateAcs = new UpdateAcsService();
     const { id } = request.acs;
+
+    Logger.create(request.acs.id, `Alterou seu perfil`);
 
     const acs = await updateAcs.execute({ acs_id: id, ...request.body });
 

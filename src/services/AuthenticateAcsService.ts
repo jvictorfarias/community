@@ -6,6 +6,7 @@ import authConfig from '../config/auth';
 import AppError from '../errors/AppError';
 
 import Acs from '../models/Acs';
+import Logger from '../helpers/Logger';
 
 interface Request {
   email: string;
@@ -37,6 +38,8 @@ class AuthenticateAcsService {
     });
 
     delete acs.password;
+
+    Logger.create(acs.id, 'Entrou na aplicação.');
 
     return {
       acs: {

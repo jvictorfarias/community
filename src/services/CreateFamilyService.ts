@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 
 import Family from '../models/Family';
 import Address from '../models/Address';
+import Logger from '../helpers/Logger';
 
 interface Request {
   name: string;
@@ -47,6 +48,8 @@ class CreateAcsService {
     });
 
     await addressRepository.save(address);
+
+    Logger.create(acs_id, `Cadastrou a família de nome ${name}`);
 
     return family;
   }

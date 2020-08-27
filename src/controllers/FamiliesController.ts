@@ -4,6 +4,7 @@ import ListFamiliesService from '../services/ListFamiliesService';
 import ListFamilyService from '../services/ListFamilyService';
 import SearchFamiliesService from '../services/SearchFamiliesService';
 import DeleteFamilyService from '../services/DeleteFamilyService';
+import Logger from '../helpers/Logger';
 
 class FamiliesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -43,6 +44,8 @@ class FamiliesController {
 
     const families = await listFamilies.execute({ acs_id });
 
+    Logger.create(request.acs.id, `Listou os indivíduos`);
+
     return response.status(200).json(families);
   }
 
@@ -52,6 +55,8 @@ class FamiliesController {
     const listFamily = new ListFamilyService();
 
     const family = await listFamily.execute({ id });
+
+    Logger.create(request.acs.id, `Procurou pelo indivíduo  ${id}`);
 
     return response.status(200).json(family);
   }
@@ -64,6 +69,7 @@ class FamiliesController {
     const families = await searchFamilies.execute({
       name,
     });
+    Logger.create(request.acs.id, `Procurou pelo termo ${name}`);
 
     return response.status(200).json(families);
   }
@@ -76,6 +82,8 @@ class FamiliesController {
     await deleteFamily.execute({
       family_id: id,
     });
+
+    Logger.create(request.acs.id, `Apagou a família com ID  ${id}`);
 
     return response.status(204);
   }
