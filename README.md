@@ -73,7 +73,7 @@ $ yarn install
 # Dentro do projeto, já existe uma arquivo docker-compose.yml que possui o
 # PostgreSQL como banco de dados, basta ter o Docker instalado em sua máquina.
 $ docker-compose up -d # Iniciará em background e não irá bloquear o shell
-
+# *CONFIGURE UM ARQUIVO .ENV, COM SUAS ENTRADAS IGUAL A .ENV.EXAMPLE
 # Rodando as migrations para o banco de dados e iniciando o projeto
 $ yarn typeorm migration:run && yarn dev:server
 ```
