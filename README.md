@@ -67,14 +67,15 @@ $ cd community
 
 ```sh
 $ cd src
-
+# Tenha certeza que possui o NodeJS e Yarn instalados
+$ yarn install
 # Criando a imagem Docker do banco de dados:
 # Dentro do projeto, já existe uma arquivo docker-compose.yml que possui o
 # PostgreSQL como banco de dados, basta ter o Docker instalado em sua máquina.
 $ docker-compose up -d # Iniciará em background e não irá bloquear o shell
 
 # Rodando as migrations para o banco de dados e iniciando o projeto
-$ yarn && yarn typeorm migration:run && yarn dev:server
+$ yarn typeorm migration:run && yarn dev:server
 ```
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Community&uri=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1XuDjZbQt1hsVtRQ5fA-xMnnmJaMqIKhw%2Fview%3Fusp%3Dsharing)
